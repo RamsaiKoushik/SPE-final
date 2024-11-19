@@ -1,5 +1,5 @@
 class API {
-  static const String baseURL = 'http://10.0.2.2:5000/api/v1';
+  static const String baseURL = 'http://192.168.184.130:5000/api/v1';
   static const String userEndpoint = '/user';
   static const String patientEndpoint = '/patient';
   static const String doctorEndpoint = '/doctor';
