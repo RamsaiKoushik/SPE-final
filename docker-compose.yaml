@@ -30,7 +30,15 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - app-network
-
+  flutter-web:
+    build:
+      context: ./flutter-frontend/healthlink
+      dockerfile: Dockerfile
+    container_name: flutter-web
+    ports:
+      - "80:80"
+    networks:
+      - app-network
 volumes:
   db_data:
 
