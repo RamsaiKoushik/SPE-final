@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'package:healthlink/APIs.dart';
 import 'package:healthlink/Service/auth_service.dart';
 import 'package:http/http.dart' as http;
 
 class UserService {
-  String userURL = 'http://10.0.2.2:5000/api/v1/user/getUserDetails';
+  String userURL = '${API.baseURL}/user/getUserDetails';
+
+  
 
   Future<Map<String, dynamic>?> getUserDetails() async {
     try {
