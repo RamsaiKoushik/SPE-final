@@ -39,6 +39,8 @@ services:
     ports:
       - "9000:9000"
       - "3001:80"
+    depends_on:
+      - app
     networks:
       - app-network
 
