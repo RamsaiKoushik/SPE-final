@@ -1,0 +1,28 @@
+---
+- name: Deploy Docker Compose App
+  hosts: servers
+  become: yes
+  tasks:
+    - name: Ensure Docker is installed
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Install Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/v2.21.0/docker-compose-linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Pull Docker images
+      command: docker pull ramsai987/spring-backend:latest
+    - command: docker pull ramsai987/flutter-frontend:latest
+
+    - name: Copy docker-compose file
+      copy:
+        src: ./docker-compose.yml
+        dest: /opt/healthlink/docker-compose.yml
+
+    - name: Run Docker Compose
+      command: docker-compose -f /opt/healthlink/docker-compose.yml up -d
