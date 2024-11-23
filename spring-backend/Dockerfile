@@ -13,17 +13,23 @@
 # # Run the Spring Boot application
 # ENTRYPOINT ["java", "-jar", "backend.jar"]
 
-# Use Maven as a base image
-FROM maven:3.9.4-eclipse-temurin-17
+# Use Maven with OpenJDK 17 as the base image
+FROM maven:3.8.4-openjdk-17-slim
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Maven project files
-COPY . .
+# Copy the Maven project descriptor to the working directory
+COPY pom.xml ./
 
-# Expose the port your Spring Boot application runs on
+# Download dependencies to speed up subsequent builds
+RUN mvn dependency:go-offline -B
+
+# Copy the rest of the application source code
+COPY src ./src
+
+# Expose the port the Spring Boot application will run on
 EXPOSE 8080
 
-# Run the Spring Boot application using Maven
-ENTRYPOINT ["mvn", "spring-boot:run"]
+# Command to run the Spring Boot application
+CMD ["mvn", "spring-boot:run"]
