@@ -16,7 +16,7 @@ pipeline {
                 script {
                     // Use Docker Compose to build images
                     sh """
-                        docker-compose -f docker-compose.yml build \
+                        sudo docker-compose -f docker-compose.yaml build \
                         --build-arg DOCKER_HUB_REPO=$DOCKER_HUB_REPO
                     """
                 }
@@ -28,7 +28,7 @@ pipeline {
                     // Login to Docker Hub and push images using docker-compose
                     docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
                         sh """
-                            docker-compose -f docker-compose.yml push
+                           sudo docker-compose -f docker-compose.yaml push
                         """
                     }
                 }
