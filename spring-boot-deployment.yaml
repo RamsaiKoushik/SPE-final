@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot
+  namespace: healthlink
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: spring-boot
+  template:
+    metadata:
+      labels:
+        app: spring-boot
+    spec:
+      containers:
+      - name: spring-boot
+        image: spring-backend
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:mysql://mysql:3306/bytesynergy
+        - name: SPRING_DATASOURCE_USERNAME
+          value: ramsai
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: ramsai@1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot
+  namespace: healthlink
+spec:
+  selector:
+    app: spring-boot
+  ports:
+  - port: 5000
+    targetPort: 8080
+    protocol: TCP
+  type: ClusterIP
