@@ -16,7 +16,7 @@ pipeline {
                 script {
                     // Use Docker Compose to build images
                     sh """
-                        sudo docker-compose -f docker-compose.yaml build \
+                        docker-compose -f docker-compose.yaml build \
                         --build-arg DOCKER_HUB_REPO=$DOCKER_HUB_REPO
                     """
                 }
