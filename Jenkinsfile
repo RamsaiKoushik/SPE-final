@@ -39,7 +39,7 @@ pipeline {
                 script {
                     // Optionally, use Ansible for deployment
                     ansiblePlaybook(
-                        playbook: 'deploy.yml',
+                        playbook: 'deploy.yaml',
                         inventory: 'inventory',
                         credentialsId: 'ansible-ssh-credentials' // Jenkins SSH credentials ID
                     )
