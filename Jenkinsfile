@@ -28,7 +28,7 @@ pipeline {
                     // Login to Docker Hub and push images using docker-compose
                     docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
                         sh """
-                           sudo docker-compose -f docker-compose.yaml push
+                           docker-compose -f docker-compose.yaml push
                         """
                     }
                 }
