@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-hub-credentials' // Jenkins credentials ID for Docker Hub
-        DOCKER_HUB_REPO = 'ramsai987' // Docker Hub username or repo name
+        DOCKER_HUB_REPO = 'srinivasan2404' // Docker Hub username or repo name
     }
     stages {
         stage('Clone Code') {
