@@ -16,8 +16,8 @@
       when: ansible_distribution == "Ubuntu"
 
     - name: Pull Docker images
-      command: docker pull ramsai987/spring-backend:latest
-    - command: docker pull ramsai987/flutter-frontend:latest
+      command: docker pull srinivasan2404/spring-backend:latest
+    - command: docker pull srinivasan2404/flutter-frontend:latest
 
     - name: Copy docker-compose file
       copy:
