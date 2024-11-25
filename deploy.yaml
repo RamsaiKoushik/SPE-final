@@ -21,8 +21,8 @@
 
     - name: Copy docker-compose file
       copy:
-        src: ./docker-compose.yml
-        dest: /opt/healthlink/docker-compose.yml
+        src: ./docker-compose.yaml
+        dest: /opt/healthlink/docker-compose.yaml
 
     - name: Run Docker Compose
-      command: docker-compose -f /opt/healthlink/docker-compose.yml up -d
+      command: docker-compose -f /opt/healthlink/docker-compose.yaml up -d
