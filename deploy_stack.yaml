@@ -1,0 +1,26 @@
+- name: Deploy Full Stack
+  hosts: all
+  tasks:
+    - name: Pull Docker images for all services
+      docker_image:
+        name: "{{ item }}"
+        source: pull
+      loop:
+        - ramsai987/spring-backend:latest
+        - ramsai987/flutter-frontend:latest
+        - ramsai/mysql-db-image
+
+    - name: Apply MySQL StatefulSet and Services
+      command: kubectl apply -f mysql.yaml
+      args:
+        chdir: deployment
+
+    - name: Apply Backend Deployment and Service
+      command: kubectl apply -f backend.yaml
+      args:
+        chdir: deployment
+
+    - name: Apply Frontend Deployment and Service
+      command: kubectl apply -f frontend.yaml
+      args:
+        chdir: deployment
