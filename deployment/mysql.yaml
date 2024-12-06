@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: mysql-db
-          image: ramsai/mysql-db-image
+          image: mysql:8.0
           ports:
             - containerPort: 3306
           env:

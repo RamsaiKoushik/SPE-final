@@ -1,3 +1,43 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: spring-boot-app
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: spring-boot-app
+#   template:
+#     metadata:
+#       # labels:
+#         app: spring-boot-app
+#     spec:
+#       containers:
+#         - name: spring-boot-app
+#           image: ramsai987/final_project-app
+#           ports:
+#             - containerPort: 5000
+#           env:
+#             - name: SPRING_DATASOURCE_URL
+#               value: "jdbc:mysql://mysql-service:3306/bytesynergy"
+#             - name: SPRING_DATASOURCE_USERNAME
+#               value: "ramsai"
+#             - name: SPRING_DATASOURCE_PASSWORD
+#               value: "ramsai@1"
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: spring-boot-service
+# spec:
+#   selector:
+#     app: spring-boot-app
+#   ports:
+#     - protocol: TCP
+#       port: 5000
+#       targetPort: 5000
+#   type: ClusterIP
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,7 +54,7 @@ spec:
     spec:
       containers:
         - name: spring-boot-app
-          image: ramsai987/spring-backend:latest
+          image: ramsai987/final_project-app
           ports:
             - containerPort: 5000
           env:
@@ -36,4 +76,4 @@ spec:
     - protocol: TCP
       port: 5000
       targetPort: 5000
-  type: ClusterIP
+  type: NodePort
