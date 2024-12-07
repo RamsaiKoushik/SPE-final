@@ -35,7 +35,7 @@ public class DemoApplication implements CommandLineRunner{
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("*")
+				registry.addMapping("/**").allowedOrigins("http://192.168.58.2:30007")
 				.allowedMethods("GET","POST","PUT","DELETE","OPTIONS");
 				// .allowCredentials(true);
 			}

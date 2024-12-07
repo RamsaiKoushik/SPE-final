@@ -4,7 +4,7 @@
     - name: Pull Docker images manually
       command: docker pull {{ item }}
       loop:
-        - ramsai987/final_project-app
+        - ramsai987/spring-backend
         - ramsai987/flutter-frontend
         - mysql:8.0
 

@@ -1,5 +1,5 @@
 class API {
-  static const String baseURL = 'http://spring-boot-service:5000/api/v1';
+  static const String baseURL = 'http://192.168.58.2:30008/api/v1';
   static const String userEndpoint = '/user';
   static const String patientEndpoint = '/patient';
   static const String doctorEndpoint = '/doctor';

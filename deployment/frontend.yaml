@@ -14,6 +14,7 @@ spec:
     spec:
       containers:
         - name: flutter-web
+          imagePullPolicy: Always
           image: ramsai987/flutter-frontend 
           ports:
             - containerPort: 9000
@@ -29,6 +30,7 @@ spec:
     - protocol: TCP
       port: 9000
       targetPort: 9000
+      nodePort: 30007
   type: NodePort
 
 # apiVersion: apps/v1

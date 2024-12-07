@@ -54,7 +54,8 @@ spec:
     spec:
       containers:
         - name: spring-boot-app
-          image: ramsai987/final_project-app
+          image: ramsai987/spring-backend
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
           env:
@@ -76,4 +77,5 @@ spec:
     - protocol: TCP
       port: 5000
       targetPort: 5000
+      nodePort: 30008
   type: NodePort
