@@ -1,31 +1,6 @@
+---
 - name: Deploy Full Stack
-  hosts: all
-  tasks:
-    - name: Pull Docker images manually
-      command: docker pull {{ item }}
-      loop:
-        # - ramsai987/spring-backend
-        - srinivasan2404/spring-backend
-        # - ramsai987/flutter-frontend
-        - srinivasan2404/flutter-web
-        - mysql:8.0
-
-    - name: Apply MySQL StatefulSet and Services
-      command: kubectl apply -f mysql.yaml
-      args:
-        chdir: deployment
-
-    - name: Apply Backend Deployment and Service
-      command: kubectl apply -f backend.yaml
-      args:
-        chdir: deployment
-
-    - name: Apply Frontend Deployment and Service
-      command: kubectl apply -f frontend.yaml
-      args:
-        chdir: deployment
-
-    - name: Apply Ingress
-      command: kubectl apply -f ingress.yaml
-      args:
-        chdir: deployment
+  hosts: servers
+  roles:
+    - common
+    - main_role

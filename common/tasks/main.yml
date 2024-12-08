@@ -1,0 +1,15 @@
+---
+# Tasks file for common
+
+- name: Ensure Docker is installed
+  apt:  # Use `apt` for Debian-based systems (e.g., Ubuntu)
+    name: docker.io
+    state: present
+  become: false  # Ensure the task runs with elevated privileges
+
+- name: Ensure Docker service is running and enabled
+  service:
+    name: docker
+    state: started
+    enabled: true
+  become: false  # Ensure the task runs with elevated privileges
