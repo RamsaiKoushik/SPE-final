@@ -60,8 +60,11 @@ pipeline {
 
         stage("Deploy Ansible Vault with Kubernetes"){
             steps {
-                sh '''
-                ansible-playbook -i inventory.ini --ask-vault-pass deploy_stack.yaml
+               sh '''
+                echo "$VAULT_PASS" > /tmp/vault_pass.txt
+                chmod 600 /tmp/vault_pass.txt
+                ansible-playbook -i inventory --vault-password-file /tmp/vault_pass.txt deploy_stack.yaml
+                rm -f /tmp/vault_pass.txt
                 '''
             }
 
