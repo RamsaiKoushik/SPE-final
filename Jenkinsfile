@@ -59,7 +59,7 @@ pipeline {
         // }
 
         stage("Deploy Ansible Vault with Kubernetes"){
-            teps {
+            steps {
                 sh '''
                 ansible-playbook -i inventory.ini --ask-vault-pass deploy_stack.yaml
                 '''
