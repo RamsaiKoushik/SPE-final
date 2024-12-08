@@ -4,8 +4,10 @@
     - name: Pull Docker images manually
       command: docker pull {{ item }}
       loop:
-        - ramsai987/spring-backend
-        - ramsai987/flutter-frontend
+        # - ramsai987/spring-backend
+        - srinivasan2404/spring-backend
+        # - ramsai987/flutter-frontend
+        - srinivasan2404/flutter-web
         - mysql:8.0
 
     - name: Apply MySQL StatefulSet and Services

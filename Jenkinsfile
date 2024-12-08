@@ -1,55 +1,70 @@
 pipeline {
-    agent any
+    
     environment {
-        DOCKER_CREDENTIALS_ID = 'Dockerhub-Credentials-ID' // Jenkins credentials ID for Docker Hub
+        DOCKERHUB_CRED = credentials("Dockerhub-Credentials-ID") // Jenkins credentials ID for Docker Hub
         DOCKER_HUB_REPO = 'srinivasan2404' // Docker Hub username or repo name
+        MINIKUBE_HOME = '/home/jenkins/.minikube'
+        VAULT_PASS = credentials("ansible_vault_pass")
     }
+
+    agent any
     stages {
-        stage('Clone Code') {
-            steps {
-                // Clone the repository
-                git 'https://github.com/RamsaiKoushik/SPE-final' 
-            }
-        }
+
         stage('Build and Tag Images') {
             steps {
-                script {
-                    // Use Docker Compose to build images
-                    sh """
-                        docker-compose -f docker-compose.yaml build \
-                        --build-arg DOCKER_HUB_REPO=$DOCKER_HUB_REPO
-                    """
+
+                // dir('sql') {
+                //     // sh "docker build -t ${DOCKER_HUB_REPO}/mysql:latest ."
+                // }
+
+                dir('spring-backend') {
+                    sh "docker build -t ${DOCKER_HUB_REPO}/spring-backend:latest ."
+                }
+
+                dir('flutter-frontend/healthlink') {
+                    // sh "cd flutter-front"
+                    sh "docker build -t ${DOCKER_HUB_REPO}/flutter-web:latest ."
                 }
             }
         }
+
         stage('Push to Docker Hub') {
             steps {
-                script {
-                    // Login to Docker Hub and push images using docker-compose
-                    docker.withRegistry('', DOCKER_CREDENTIALS_ID) {
-                        sh """
-                           docker-compose -f docker-compose.yaml push
-                        """
-                    }
-                }
+                sh 'echo $DOCKERHUB_CRED_PSW | docker login -u $DOCKERHUB_CRED_USR --password-stdin'
+                sh "docker push ${DOCKER_HUB_REPO}/spring-backend:latest"
+                sh "docker push ${DOCKER_HUB_REPO}/flutter-web:latest"
+                // sh "docker push ${DOCKER_HUB_REPO}/mysql:latest"
             }
         }
-        stage('Deploy with Docker Compose and Ansible') {
+
+        stage('Clean Local Docker Images') {
             steps {
-                script {
-                    // Optionally, use Ansible for deployment
-                    ansiblePlaybook(
-                        playbook: 'deploy.yaml',
-                        inventory: 'inventory',
-                        credentialsId: 'ansible-ssh-credentials' // Jenkins SSH credentials ID
-                    )
-                }
+                sh "docker rmi ${DOCKER_HUB_REPO}/spring-bakend:latest || true"
+                sh "docker rmi ${DOCKER_HUB_REPO}/flutter-web:latest || true"
+                // sh "docker rmi ${DOCKER_HUB_REPO}/mysql:latest || true"
             }
         }
-        stage('Verify Workspace') {
-            steps {
-                sh 'ls -R'  // List all files in the workspace recursively
+
+        // stage('Deploy with Docker Compose and Ansible') {
+        //     steps {
+        //         script {
+        //             // Optionally, use Ansible for deployment
+        //             ansiblePlaybook(
+        //                 playbook: 'deploy-app.yaml',
+        //                 inventory: 'inventory',
+        //                 // credentialsId: 'ansible-ssh-credentials' // Jenkins SSH credentials ID
+        //             )
+        //         }
+        //     }
+        // }
+
+        stage("Deploy Ansible Vault with Kubernetes"){
+            teps {
+                sh '''
+                ansible-playbook -i inventory.ini --ask-vault-pass deploy_stack.yaml
+                '''
             }
+
         }
     }
 }

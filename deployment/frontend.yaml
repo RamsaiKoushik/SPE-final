@@ -15,7 +15,8 @@ spec:
       containers:
         - name: flutter-web
           imagePullPolicy: Always
-          image: ramsai987/flutter-frontend 
+          # image: ramsai987/flutter-frontend
+          image: srinivasan2404/flutter-web
           ports:
             - containerPort: 9000
 ---
