@@ -98,7 +98,7 @@ class AuthService {
   Future<Map<String, dynamic>> signUpDoctor(Doctor doctor) async {
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:5000/api/v1/user/doctorsignup'),
+        Uri.parse('http://192.168.49.2:30008/api/v1/user/doctorsignup'),
         body: jsonEncode({
           "userEntity": {
             "id": '',
