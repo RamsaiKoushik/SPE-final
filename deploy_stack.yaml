@@ -1,6 +1,6 @@
 ---
 - name: Deploy Full Stack
-  hosts: all
+  hosts: servers
   roles:
     - common
     - main_role
