@@ -7,6 +7,10 @@ pipeline {
         VAULT_PASS = credentials("ansible_vault_pass")
     }
 
+
+
+
+
     agent any
     stages {
 
