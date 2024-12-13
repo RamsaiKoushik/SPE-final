@@ -4,9 +4,9 @@
   command: docker pull {{ item }}
   loop:
     # - ramsai987/spring-backend
-    - srinivasan2404/spring-backend
+    - srinivasan2404/spring-backend:latest
     # - ramsai987/flutter-frontend
-    - srinivasan2404/flutter-web
+    - srinivasan2404/flutter-web:latest
     - mysql:8.0
 
 - name: Apply MySQL StatefulSet and Services

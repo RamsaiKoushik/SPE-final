@@ -55,7 +55,7 @@ spec:
       containers:
         - name: spring-boot-app
           # image: ramsai987/spring-backend
-          image : srinivasan2404/spring-backend
+          image : srinivasan2404/spring-backend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000

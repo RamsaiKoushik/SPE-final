@@ -7,10 +7,6 @@ pipeline {
         VAULT_PASS = credentials("ansible_vault_pass")
     }
 
-
-
-
-
     agent any
     stages {
 
@@ -67,7 +63,7 @@ pipeline {
                sh '''
                 echo "$VAULT_PASS" > /tmp/vault_pass.txt
                 chmod 600 /tmp/vault_pass.txt
-                ansible-playbook -i inventory --vault-password-file /tmp/vault_pass.txt deploy_stack.yaml
+                ansible-playbook -i inventory.ini --vault-password-file /tmp/vault_pass.txt deploy_stack.yaml
                 rm -f /tmp/vault_pass.txt
                 '''
             }
