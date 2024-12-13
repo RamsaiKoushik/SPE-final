@@ -39,8 +39,8 @@ pipeline {
 
         stage('Clean Local Docker Images') {
             steps {
-                sh "docker rmi ${DOCKER_HUB_REPO}/spring-backend:latest || true"
-                sh "docker rmi ${DOCKER_HUB_REPO}/flutter-web:latest || true"
+                sh "docker rmi ${DOCKER_HUB_REPO}/spring-backend || true"
+                sh "docker rmi ${DOCKER_HUB_REPO}/flutter-web || true"
                 // sh "docker rmi ${DOCKER_HUB_REPO}/mysql:latest || true"
             }
         }
